@@ -65,7 +65,8 @@ get_user(MYSQL_SERVER_AUTH_INFO *info, struct saslauthd_credentials *cred,
       sep[0] = '\0';
       realm = &sep[1];
       realm_len = buf_len - (realm - buf);
-      if (sep > buf) {
+      if (sep > buf)
+      {
         user = buf;
         user_len = buf_len - realm_len - 1;
       }
@@ -130,13 +131,15 @@ static MYSQL_SYSVAR_STR(service, saslauthd_service,
                         NULL,
                         "mariadb");
 
-static struct st_mysql_sys_var *vars[] = {
+static struct st_mysql_sys_var *vars[] =
+{
   MYSQL_SYSVAR(path),
   MYSQL_SYSVAR(service),
   NULL
 };
 
-static struct st_mysql_auth info = {
+static struct st_mysql_auth info =
+{
   MYSQL_AUTHENTICATION_INTERFACE_VERSION,
   "mysql_clear_password",
   saslauthd_auth
