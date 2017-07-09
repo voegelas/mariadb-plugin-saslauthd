@@ -30,7 +30,7 @@ ${PLUGIN}: ${OBJS}
 
 ${OBJS}: ${SRCS} ${HDRS}
 
-install:
+install: ${PLUGIN}
 	${INSTALL} -D -m 0755 ${PLUGIN} ${DESTDIR}${PLUGINDIR}/${PLUGIN}
 
 clean:
