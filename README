@@ -7,33 +7,33 @@ saslauthd requires the passwords in clear text. Make sure that non-local
 connections between your database clients and the server are secured with TLS.
 See the MariaDB documentation for more information.
 
-INSTALLATION
-
-To install the plugin, run the following commands:
-
-  make OPTIMIZE="-O2" SASLAUTHD_PATH="/var/state/saslauthd/mux"
-  sudo make install
-
-Add the following settings to your database server's configuration:
-
-  [mariadb]
-  plugin-load-add=auth_saslauthd.so
-  saslauthd_path=/var/state/saslauthd/mux
-  saslauthd_service=mariadb
-
-Sometimes the communications socket is named /var/run/saslauthd/mux or
-/var/sasl2/mux.
+ENABLE SASLAUTHD
 
 On Slackware Linux, enable the saslauthd daemon with:
 
   sudo chmod +x /etc/rc.d/rc.saslauthd
   sudo /etc/rc.d/rc.saslauthd start
 
+On OpenBSD, install the cyrus-sasl package and enable the saslauthd daemon
+with rcctl(8).
+
 On Debian, install the sasl2-bin package, enable the saslauthd daemon and add
 the mysql user to the sasl group.
 
-On OpenBSD, install the cyrus-sasl package and enable the saslauthd daemon
-with rcctl(8).
+PLUGIN INSTALLATION
+
+To install the plugin, run the following commands:
+
+  make OPTIMIZE="-O2" SASLAUTHD_PATH="/var/run/saslauthd/mux"
+  sudo make install
+
+Depending on your system the communications socket is named
+/var/run/saslauthd/mux, /var/state/saslauthd/mux or /var/sasl2/mux.
+
+Add the following settings to your database server's configuration:
+
+  [mariadb]
+  plugin-load-add=auth_saslauthd.so
 
 Restart the database system and list the plugins:
 
