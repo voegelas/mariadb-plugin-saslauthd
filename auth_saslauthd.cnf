@@ -1,4 +1,0 @@
-[mariadb]
-plugin-load-add=auth_saslauthd.so
-saslauthd_path=/var/state/saslauthd/mux
-saslauthd_service=mariadb
