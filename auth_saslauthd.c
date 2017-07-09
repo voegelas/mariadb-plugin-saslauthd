@@ -130,10 +130,8 @@ saslauthd_auth(MYSQL_PLUGIN_VIO *vio, MYSQL_SERVER_AUTH_INFO *info)
   cred->password_len = pkt_len;
   int rc = saslauthd_checkpass(saslauthd_path, cred);
   if (rc != 0)
-    my_printf_error(ER_ACCESS_DENIED_ERROR,
-                    "saslauthd authentication failed: %s",
-                    MYF(0),
-                    cred->error);
+    my_printf_error(ER_ACCESS_DENIED_ERROR, "saslauthd: %s", MYF(0),
+		    cred->error);
   if (buf != NULL)
     free(buf);
   return (rc == 0) ? CR_OK : CR_ERROR;
