@@ -42,7 +42,6 @@ get_user(MYSQL_SERVER_AUTH_INFO *info, struct saslauthd_credentials *cred,
 {
   const char *user, *realm;
   unsigned short user_len, realm_len;
-  size_t ext_len;
   char *buf;
 
   user = info->user_name;
@@ -84,7 +83,7 @@ get_user(MYSQL_SERVER_AUTH_INFO *info, struct saslauthd_credentials *cred,
 
   if (user != NULL)
   {
-    ext_len = (user_len > MYSQL_USERNAME_LENGTH)
+    size_t ext_len = (user_len > MYSQL_USERNAME_LENGTH)
       ? MYSQL_USERNAME_LENGTH : user_len;
     strncpy(info->external_user, user, ext_len);
     info->external_user[ext_len] = '\0';
