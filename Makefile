@@ -6,18 +6,18 @@ SRCS=		saslauthd_client.c auth_saslauthd.c
 SASLAUTHD_PATH=	/var/state/saslauthd/mux
 SASLAUTHD_SERVICE=mariadb
 
-CNFDIR=		/etc/my.cnf.d
-PLUGINDIR=	`mysql_config --plugindir`
+PLUGINDIR!=	mysql_config --plugindir
+MYLIBDIR!=	mysql_config --variable=pkglibdir
+MYFLAGS!=	mysql_config --cflags
 
 DEFS=		-DMYSQL_DYNAMIC_PLUGIN \
 		-DSASLAUTHD_PATH='"${SASLAUTHD_PATH}"' \
 		-DSASLAUTHD_SERVICE='"${SASLAUTHD_SERVICE}"'
 
-MYSQLFLAGS=	`mysql_config --cflags`
-
-PICFLAG+=	-fPIC
-CFLAGS+=	${OPTIMIZE} ${PICFLAG} ${MYSQLFLAGS} ${DEFS}
+PICFLAGS+=	-fPIC
+CFLAGS+=	${OPTIMIZE} ${PICFLAGS} ${MYFLAGS} ${DEFS}
 SOFLAGS+=	-shared
+SOLIBS+=	-lpthread -L${MYLIBDIR} -lmysqlservices
 
 OBJS=		${SRCS:.c=.o}
 
@@ -26,7 +26,7 @@ INSTALL=	install
 all: ${PLUGIN}
 
 ${PLUGIN}: ${OBJS}
-	${CC} ${SOFLAGS} -o ${PLUGIN} ${OBJS}
+	${CC} ${SOFLAGS} -o ${PLUGIN} ${OBJS} ${SOLIBS}
 
 ${OBJS}: ${SRCS} ${HDRS}
 
