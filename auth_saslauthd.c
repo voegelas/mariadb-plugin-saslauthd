@@ -26,7 +26,7 @@
 #include "saslauthd_client.h"
 
 #ifndef SASLAUTHD_PATH
-#define SASLAUTHD_PATH "/var/state/saslauthd/mux"
+#define SASLAUTHD_PATH "/var/run/saslauthd/mux"
 #endif
 
 #ifndef SASLAUTHD_SERVICE
