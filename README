@@ -17,25 +17,27 @@ To install the plugin, run the following commands:
 Add the following settings to your database server's configuration:
 
   [mariadb]
-  plugin-load=auth_saslauthd.so
+  plugin-load-add=auth_saslauthd.so
   saslauthd_path=/var/state/saslauthd/mux
   saslauthd_service=mariadb
 
 Sometimes the communications socket is named /var/run/saslauthd/mux or
 /var/sasl2/mux.
 
-On Slackware Linux, enable the saslauthd daemon and restart MariaDB with:
+On Slackware Linux, enable the saslauthd daemon with:
 
   sudo chmod +x /etc/rc.d/rc.saslauthd
   sudo /etc/rc.d/rc.saslauthd start
-  sudo /etc/rc.d/rc.mysqld restart
+
+On Debian, install the sasl2-bin package, enable the saslauthd daemon and add
+the mysql user to the sasl group.
 
 On OpenBSD, install the cyrus-sasl package and enable the saslauthd daemon
 with rcctl(8).
 
-Connect to MariaDB and check the database system for the plugin:
+Restart the database system and list the plugins:
 
-  SHOW PLUGINS\G
+  echo 'SHOW PLUGINS\G' | mysql -h localhost -u root -p
 
      Name: saslauthd
    Status: ACTIVE
