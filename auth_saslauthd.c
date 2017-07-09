@@ -25,6 +25,14 @@
 
 #include "saslauthd_client.h"
 
+#ifndef SASLAUTHD_PATH
+#define SASLAUTHD_PATH "/var/state/saslauthd/mux"
+#endif
+
+#ifndef SASLAUTHD_SERVICE
+#define SASLAUTHD_SERVICE "mariadb"
+#endif
+
 static char *saslauthd_path;
 static char *saslauthd_service;
 
@@ -122,14 +130,14 @@ static MYSQL_SYSVAR_STR(path, saslauthd_path,
                         "saslauthd communications socket",
                         NULL,
                         NULL,
-                        "/var/state/saslauthd/mux");
+                        SASLAUTHD_PATH);
 
 static MYSQL_SYSVAR_STR(service, saslauthd_service,
                         PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_READONLY,
                         "saslauthd service name",
                         NULL,
                         NULL,
-                        "mariadb");
+                        SASLAUTHD_SERVICE);
 
 static struct st_mysql_sys_var *vars[] =
 {

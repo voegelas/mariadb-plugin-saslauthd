@@ -1,5 +1,5 @@
 auth_saslauthd.so is a MariaDB plugin that authenticates database users with
-saslauthd against the system password database, e.g. /etc/shadow.
+saslauthd against the system password database.
 
 SECURE CONNECTIONS
 
@@ -11,24 +11,27 @@ INSTALLATION
 
 To install the plugin, run the following commands:
 
-  make
+  make OPTIMIZE="-O2" SASLAUTHD_PATH="/var/state/saslauthd/mux"
   sudo make install
 
-Add the following settings to your MariaDB configuration, for example by
-creating the file /etc/my.cnf.d/auth_saslauthd.cnf:
+Add the following settings to your database server's configuration:
 
   [mariadb]
   plugin-load=auth_saslauthd.so
   saslauthd_path=/var/state/saslauthd/mux
   saslauthd_service=mariadb
 
-Sometimes the communications socket is named /var/run/saslauthd/mux.
+Sometimes the communications socket is named /var/run/saslauthd/mux or
+/var/sasl2/mux.
 
 On Slackware Linux, enable the saslauthd daemon and restart MariaDB with:
 
   sudo chmod +x /etc/rc.d/rc.saslauthd
   sudo /etc/rc.d/rc.saslauthd start
   sudo /etc/rc.d/rc.mysqld restart
+
+On OpenBSD, install the cyrus-sasl package and enable the saslauthd daemon
+with rcctl(8).
 
 Connect to MariaDB and check the database system for the plugin:
 
@@ -54,8 +57,8 @@ And you can add a realm to the system user:
 
   CREATE USER 'david' IDENTIFIED WITH saslauthd AS 'david@EXAMPLE.COM';
 
-In order to verify the new database account, run the mysql command-line tool
-and enter the system user's password. Example:
+Run the mysql command-line tool and enter the system user's password to
+check the database account. Example:
 
   mysql -h localhost -u jennifer -p
   Enter password:
