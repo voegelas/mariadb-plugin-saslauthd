@@ -36,4 +36,4 @@ install:
 clean:
 	rm -f ${PLUGIN} ${OBJS}
 
-.PHONY: all clean
+.PHONY: all install clean
