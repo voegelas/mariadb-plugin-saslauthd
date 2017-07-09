@@ -40,8 +40,8 @@ static int
 get_user(MYSQL_SERVER_AUTH_INFO *info, struct saslauthd_credentials *cred,
          char **pbuf)
 {
-  const char *user, *realm;
-  unsigned short user_len, realm_len;
+  const char *user, *realm, *extuser;
+  unsigned short user_len, realm_len, extuser_len;
   char *buf;
 
   user = info->user_name;
@@ -50,10 +50,16 @@ get_user(MYSQL_SERVER_AUTH_INFO *info, struct saslauthd_credentials *cred,
   realm_len = 0;
   buf = NULL;
 
+  extuser = user;
+  extuser_len = user_len;
+
   if (info->auth_string != NULL && info->auth_string_length > 0)
   {
     char *sep;
     size_t buf_len;
+
+    extuser = info->auth_string;
+    extuser_len = info->auth_string_length;
 
     buf_len = info->auth_string_length;
     buf = (char *) malloc(buf_len + 1);
@@ -81,12 +87,12 @@ get_user(MYSQL_SERVER_AUTH_INFO *info, struct saslauthd_credentials *cred,
     }
   }
 
-  if (user != NULL)
+  if (extuser != NULL)
   {
-    size_t ext_size = sizeof(info->external_user) - 1;
-    size_t ext_len = (user_len > ext_size) ? ext_size : user_len;
-    strncpy(info->external_user, user, ext_len);
-    info->external_user[ext_len] = '\0';
+    size_t max_len = sizeof(info->external_user) - 1;
+    size_t len = (extuser_len > max_len) ? max_len : extuser_len;
+    strncpy(info->external_user, extuser, len);
+    info->external_user[len] = '\0';
   }
 
   cred->user = user;
