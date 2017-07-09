@@ -83,8 +83,8 @@ get_user(MYSQL_SERVER_AUTH_INFO *info, struct saslauthd_credentials *cred,
 
   if (user != NULL)
   {
-    size_t ext_len = (user_len > MYSQL_USERNAME_LENGTH)
-      ? MYSQL_USERNAME_LENGTH : user_len;
+    size_t ext_size = sizeof(info->external_user) - 1;
+    size_t ext_len = (user_len > ext_size) ? ext_size : user_len;
     strncpy(info->external_user, user, ext_len);
     info->external_user[ext_len] = '\0';
   }
