@@ -3,7 +3,8 @@ CNF=		auth_saslauthd.cnf
 HDRS=		saslauthd_client.h
 SRCS=		saslauthd_client.c auth_saslauthd.c
 
-SASLAUTHD_PATH=	/var/state/saslauthd/mux
+SASLAUTHD_PATH!=perl -e 'print (((grep {-S} "/var/state/saslauthd/mux", \
+		"/var/sasl2/mux"), "/var/run/saslauthd/mux")[0])'
 SASLAUTHD_SERVICE=mariadb
 
 PLUGINDIR!=	mysql_config --plugindir
