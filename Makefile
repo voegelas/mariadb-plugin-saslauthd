@@ -1,5 +1,4 @@
 PLUGIN=		auth_saslauthd.so
-CNF=		auth_saslauthd.cnf
 HDRS=		saslauthd_client.h
 SRCS=		saslauthd_client.c auth_saslauthd.c
 
