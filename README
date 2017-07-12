@@ -1,18 +1,13 @@
-auth_saslauthd.so is a MariaDB plugin that authenticates database users with
-saslauthd against the system password database.
-
-SECURE CONNECTIONS
-
-saslauthd requires the passwords in clear text. Make sure that non-local
-connections between your database clients and the server are secured with TLS.
-See the MariaDB documentation for more information.
+This MariaDB plugin authenticates database users against the system
+password database or other authentication mechanisms supported by
+saslauthd.
 
 ENABLE SASLAUTHD
 
 On Slackware Linux, enable the saslauthd daemon with:
 
-  sudo chmod +x /etc/rc.d/rc.saslauthd
-  sudo /etc/rc.d/rc.saslauthd start
+  chmod +x /etc/rc.d/rc.saslauthd
+  /etc/rc.d/rc.saslauthd start
 
 On OpenBSD, install the cyrus-sasl package and enable the saslauthd daemon
 with rcctl(8).
@@ -25,12 +20,12 @@ PLUGIN INSTALLATION
 To install the plugin, run the following commands:
 
   make OPTIMIZE="-O2" SASLAUTHD_PATH="/var/run/saslauthd/mux"
-  sudo make install
+  make install
 
 Depending on your system the communications socket is named
 /var/run/saslauthd/mux, /var/state/saslauthd/mux or /var/sasl2/mux.
 
-Add the following settings to your database server's configuration:
+Add the following setting to your database server's configuration:
 
   [mariadb]
   plugin-load-add=auth_saslauthd.so
@@ -51,19 +46,22 @@ Add a database account for the system user "jennifer" as follows:
 
   CREATE USER 'jennifer'@'localhost' IDENTIFIED WITH saslauthd;
 
-You can specify a different system user:
+Optionally, a different system user as well as a realm can be specified.
+Example:
 
-  CREATE USER 'jekyll'@'localhost' IDENTIFIED WITH saslauthd AS 'hyde';
-
-And you can add a realm to the system user:
-
-  CREATE USER 'david' IDENTIFIED WITH saslauthd AS 'david@EXAMPLE.COM';
+  CREATE USER 'jekyll' IDENTIFIED WITH saslauthd AS 'hyde@EXAMPLE.COM';
 
 Run the mysql command-line tool and enter the system user's password to
 check the database account. Example:
 
   mysql -h localhost -u jennifer -p
   Enter password:
+
+SECURE CONNECTIONS
+
+saslauthd needs clear text passwords. Secure non-local connections
+between your database clients and the server with TLS.  See the MariaDB
+documentation for more information.
 
 DEPENDENCIES
 
