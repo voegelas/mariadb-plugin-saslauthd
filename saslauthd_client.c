@@ -104,7 +104,9 @@ saslauthd_checkpass(const char *path, struct saslauthd_credentials *cred)
 
   if ((fd = socket(AF_UNIX, SOCK_STREAM, 0)) < 0)
   {
-    set_error(cred, "Cannot create socket: %s", strerror(errno));
+    char error[128];
+    strerror_r(errno, error, sizeof(error));
+    set_error(cred, "Cannot create socket: %s", error);
     goto end;
   }
 
@@ -113,7 +115,9 @@ saslauthd_checkpass(const char *path, struct saslauthd_credentials *cred)
   strncpy(sun.sun_path, path, sizeof(sun.sun_path) - 1);
   if (connect(fd, (struct sockaddr *) &sun, sizeof(sun)) < 0)
   {
-    set_error(cred, "Cannot connect to '%s': %s", path, strerror(errno));
+    char error[128];
+    strerror_r(errno, error, sizeof(error));
+    set_error(cred, "Cannot connect to '%s': %s", path, error);
     goto end;
   }
 
