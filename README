@@ -13,7 +13,8 @@ On OpenBSD, install the cyrus-sasl package and enable the saslauthd daemon
 with rcctl(8).
 
 On Debian, install the sasl2-bin package, enable the saslauthd daemon and add
-the mysql user to the sasl group.
+the mysql user to the sasl group. Create the file /etc/pam.d/mariadb or let
+PAM fall back to /etc/pam.d/other.
 
 PLUGIN INSTALLATION
 
@@ -23,7 +24,8 @@ To install the plugin, run the following commands:
   make install
 
 Depending on your system the communications socket is named
-/var/run/saslauthd/mux, /var/state/saslauthd/mux or /var/sasl2/mux.
+/run/saslauthd/mux, /var/run/saslauthd/mux, /var/state/saslauthd/mux or
+/var/sasl2/mux.
 
 Add the following setting to your database server's configuration:
 
@@ -65,7 +67,10 @@ documentation for more information.
 
 DEPENDENCIES
 
-The plugin requires MariaDB and the saslauthd daemon from Cyrus SASL.
+The plugin requires MariaDB 10.0 or better and the saslauthd daemon from Cyrus
+SASL.
+
+Building the plugin requires GNU Make 4 or a BSD make.
 
 LICENSE AND COPYRIGHT
 

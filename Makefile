@@ -1,3 +1,5 @@
+# This Makefile requires GNU Make 4 or a BSD make.
+
 PLUGIN=		auth_saslauthd.so
 HDRS=		saslauthd_client.h
 SRCS=		saslauthd_client.c auth_saslauthd.c
