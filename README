@@ -12,9 +12,13 @@ On Slackware Linux, enable the saslauthd daemon with:
 On OpenBSD, install the cyrus-sasl package and enable the saslauthd daemon
 with rcctl(8).
 
-On Debian, install the sasl2-bin package, enable the saslauthd daemon and add
-the mysql user to the sasl group. Create the file /etc/pam.d/mariadb or let
-PAM fall back to /etc/pam.d/other.
+On Debian, install the sasl2-bin package and enable the saslauthd daemon. Add
+the mysql user to the sasl group and restart the database system. Create the
+file /etc/pam.d/mariadb. Example:
+
+  #%PAM-1.0
+  @include common-auth
+  @include common-account
 
 PLUGIN INSTALLATION
 
@@ -32,7 +36,7 @@ Enable the plugin with:
   mysql -h localhost -u root -p \
         -e "INSTALL PLUGIN saslauthd SONAME 'auth_saslauthd.so'"
 
-Or add the following setting to your database server's configuration and
+Or add the following section to your database server's configuration and
 restart the database system:
 
   [mariadb]
@@ -73,8 +77,7 @@ documentation for more information.
 
 DEPENDENCIES
 
-The plugin requires MariaDB 10.0 or better and the saslauthd daemon from Cyrus
-SASL.
+The plugin requires MariaDB and the saslauthd daemon from Cyrus SASL.
 
 Building the plugin requires GNU Make 4 or a BSD make.
 
