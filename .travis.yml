@@ -24,4 +24,4 @@ script:
   - sudo bmake install
   - mysql -u root -e "INSTALL PLUGIN saslauthd SONAME 'auth_saslauthd.so'"
   - mysql -u root -e "CREATE USER 'plugintest'@'localhost' IDENTIFIED WITH saslauthd"
-  - mysql -u plugintest -p'ahYai4po-j' -e "SELECT @@EXTERNAL_USER"
+  - mysql -u plugintest -p'ahYai4po-j' -e "SELECT USER()"
