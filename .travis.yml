@@ -11,7 +11,7 @@ install:
   - sudo service saslauthd start
   - sudo usermod -a -G sasl mysql
   - sudo service mysql restart
-  - sudo useradd -p '$1$k3NZca9u$Zc1N34ey3vMoF5iduRF4H0' -s /bin/false plugintest
+  - sudo useradd -p '$1$SlpAlns7$gpYwoCCXRv5G0DE3zbw8y.' -s /bin/false plugintest
   - printf "@include common-auth\n@include common-account\n" | sudo tee /etc/pam.d/mariadb
 
 script:
@@ -19,4 +19,4 @@ script:
   - sudo bmake install
   - mysql -u root -e "INSTALL PLUGIN saslauthd SONAME 'auth_saslauthd.so'"
   - mysql -u root -e "CREATE USER 'plugintest'@'localhost' IDENTIFIED WITH saslauthd"
-  - mysql -u plugintest -p'seevie.ho4Uosh8z' -e "SELECT @@EXTERNAL_USER"
+  - mysql -u plugintest -p'ahYai4po-j' -e "SELECT @@EXTERNAL_USER"
