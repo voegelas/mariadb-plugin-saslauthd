@@ -1,0 +1,22 @@
+dist: trusty
+sudo: required
+
+addons:
+  mariadb: '5.5'
+
+install:
+  - sudo apt-get -qq update
+  - sudo apt-get -y install bmake libmariadbd-dev sasl2-bin
+  - sudo sed -i 's/^START=no/START=yes/' /etc/default/saslauthd
+  - sudo service saslauthd start
+  - sudo usermod -a -G sasl mysql
+  - sudo service mysql restart
+  - sudo useradd -p '$1$k3NZca9u$Zc1N34ey3vMoF5iduRF4H0' -s /bin/false plugintest
+  - printf "@include common-auth\n@include common-account\n" | sudo tee /etc/pam.d/mariadb
+
+script:
+  - bmake SASLAUTHD_PATH=/var/run/saslauthd/mux
+  - sudo bmake install
+  - mysql -u root -e "INSTALL PLUGIN saslauthd SONAME 'auth_saslauthd.so'"
+  - mysql -u root -e "CREATE USER 'plugintest'@'localhost' IDENTIFIED WITH saslauthd"
+  - mysql -u plugintest -p'seevie.ho4Uosh8z' -e "SELECT @@EXTERNAL_USER"
