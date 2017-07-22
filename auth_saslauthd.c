@@ -175,7 +175,7 @@ mysql_declare_plugin(saslauthd)
   PLUGIN_LICENSE_BSD,
   NULL,
   NULL,
-  0x0100,
+  0x0101,
   NULL,
   vars,
   NULL,
