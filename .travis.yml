@@ -6,6 +6,9 @@ language: c
 services:
   - mysql
 
+env:
+  - LIBMYSQL_ENABLE_CLEARTEXT_PLUGIN=Y
+
 install:
   - sudo apt-get -qq update
   - sudo apt-get -y install bmake libmysqld-dev sasl2-bin
