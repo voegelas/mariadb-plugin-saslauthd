@@ -27,14 +27,20 @@ Depending on your system the communications socket is named
 /run/saslauthd/mux, /var/run/saslauthd/mux, /var/state/saslauthd/mux or
 /var/sasl2/mux.
 
-Add the following setting to your database server's configuration:
+Enable the plugin with:
+
+  mysql -h localhost -u root -p \
+        -e "INSTALL PLUGIN saslauthd SONAME 'auth_saslauthd.so'"
+
+Or add the following setting to your database server's configuration and
+restart the database system:
 
   [mariadb]
   plugin-load-add=auth_saslauthd.so
 
-Restart the database system and list the plugins:
+List the installed plugins with:
 
-  echo 'SHOW PLUGINS\G' | mysql -h localhost -u root -p
+  mysql -h localhost -u root -p -e 'SHOW PLUGINS\G'
 
      Name: saslauthd
    Status: ACTIVE
