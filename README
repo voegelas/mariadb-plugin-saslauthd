@@ -72,7 +72,7 @@ check the database account. Example:
 SECURE CONNECTIONS
 
 saslauthd needs clear text passwords. Secure non-local connections
-between your database clients and the server with TLS.  See the MariaDB
+between your database clients and the server with TLS. See the MariaDB
 documentation for more information.
 
 DEPENDENCIES
