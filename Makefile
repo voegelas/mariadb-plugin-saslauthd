@@ -10,6 +10,7 @@ SASLAUTHD_PATH!=perl -e 'print (((grep {-S} "/run/saslauthd/mux", \
 SASLAUTHD_SERVICE=mariadb
 
 PLUGINDIR!=	mysql_config --plugindir
+MYINCDIR!=	mysql_config --variable=pkgincludedir
 MYLIBDIR!=	mysql_config --variable=pkglibdir
 MYFLAGS!=	mysql_config --cflags
 
@@ -18,7 +19,7 @@ DEFS=		-DMYSQL_DYNAMIC_PLUGIN \
 		-DSASLAUTHD_SERVICE='"${SASLAUTHD_SERVICE}"'
 
 PICFLAGS+=	-fPIC
-CFLAGS+=	${OPTIMIZE} ${PICFLAGS} ${MYFLAGS} ${DEFS}
+CFLAGS+=	${OPTIMIZE} ${PICFLAGS} -I${MYINCDIR}/server ${MYFLAGS} ${DEFS}
 SOFLAGS+=	-shared
 SOLIBS+=	-lpthread -L${MYLIBDIR} -lmysqlservices
 

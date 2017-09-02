@@ -1,5 +1,9 @@
 Revision history for mariadb-plugin-saslauthd
 
+1.2  2017-09-02 07:25:32 CEST
+
+  - Add /usr/include/mysql/server to the include path.
+
 1.1  2017-07-22 08:00:37 CEST
 
   - Use strerror_r() instead of strerror().
