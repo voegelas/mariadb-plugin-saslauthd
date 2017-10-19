@@ -41,7 +41,7 @@ Check your setup with testsaslauthd. Example:
 
 ```
 unset HISTFILE
-/usr/sbin/testsaslauthd -s mariadb -u $USER -p 'your_password'
+/usr/sbin/testsaslauthd -s mariadb -u $USER -p 'your password'
 ```
 
 ## PLUGIN INSTALLATION
