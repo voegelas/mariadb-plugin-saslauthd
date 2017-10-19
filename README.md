@@ -37,6 +37,13 @@ ldap_bind_dn: CN=saslauthd,OU=Users,DC=EXAMPLE,DC=COM
 ldap_password: secret
 ```
 
+Check your setup with testsaslauthd. Example:
+
+```
+unset HISTFILE
+/usr/sbin/testsaslauthd -s mariadb -u $USER -p 'your_password'
+```
+
 ## PLUGIN INSTALLATION
 
 To install the plugin, run the following commands:
