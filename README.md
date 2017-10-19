@@ -76,7 +76,6 @@ List the installed plugins with:
 
 ```
 mysql -h localhost -u root -p -e 'SHOW PLUGINS\G'
-
    Name: saslauthd
  Status: ACTIVE
    Type: AUTHENTICATION
