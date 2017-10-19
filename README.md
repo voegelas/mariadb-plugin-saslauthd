@@ -37,7 +37,7 @@ ldap_bind_dn: CN=saslauthd,OU=Users,DC=EXAMPLE,DC=COM
 ldap_password: secret
 ```
 
-Check your setup with testsaslauthd. Example:
+Check your setup with testsaslauthd.
 
 ```
 unset HISTFILE
