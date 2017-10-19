@@ -1,7 +1,7 @@
 # mariadb-plugin-saslauthd
 
 This MariaDB plugin authenticates database users against the system password
-database, LDAP or other mechanisms supported by saslauthd.
+file, LDAP or other mechanisms supported by saslauthd.
 
 ## ENABLE SASLAUTHD
 
@@ -16,13 +16,25 @@ On OpenBSD, install the cyrus-sasl package and enable the saslauthd daemon
 with rcctl(8).
 
 On Ubuntu, install the sasl2-bin package and enable the saslauthd daemon. Add
-the mysql user to the sasl group and restart the database system. Create the
-file /etc/pam.d/mariadb. Example:
+the mysql user to the sasl group and restart the database system.
+
+If saslauthd uses PAM, create the file /etc/pam.d/mariadb.
 
 ```
 #%PAM-1.0
 @include common-auth
 @include common-account
+```
+
+If saslauthd uses LDAP, create /etc/saslauthd.conf.
+
+```
+ldap_servers: ldap://ad1.example.com ldap://ad2.example.com
+ldap_start_tls: yes
+ldap_search_base: OU=Users,DC=EXAMPLE,DC=COM
+ldap_filter: (sAMAccountName=%u)
+ldap_bind_dn: CN=saslauthd,OU=Users,DC=EXAMPLE,DC=COM
+ldap_password: secret
 ```
 
 ## PLUGIN INSTALLATION
