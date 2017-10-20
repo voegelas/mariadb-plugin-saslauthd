@@ -76,6 +76,8 @@ List the installed plugins with:
 
 ```
 mysql -h localhost -u root -p -e 'SHOW PLUGINS\G'
+Enter password:
+*************************** 53. row ***************************
    Name: saslauthd
  Status: ACTIVE
    Type: AUTHENTICATION
@@ -118,7 +120,9 @@ The plugin requires MariaDB and the saslauthd daemon from Cyrus SASL. Ensure
 that the MariaDB client libraries are installed and that the
 mysql_clear_password plugin is available.
 
-Building the plugin requires a C compiler and GNU Make 4 or a BSD make.
+Building the plugin requires a C compiler, GNU Make 4 or a BSD make and the
+MariaDB development files. On Ubuntu, install the build-essential and
+libmariadb-dev packages.
 
 ## LICENSE AND COPYRIGHT
 
