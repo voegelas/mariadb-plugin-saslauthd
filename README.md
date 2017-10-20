@@ -114,7 +114,9 @@ documentation for more information.
 
 ## DEPENDENCIES
 
-The plugin requires MariaDB and the saslauthd daemon from Cyrus SASL.
+The plugin requires MariaDB and the saslauthd daemon from Cyrus SASL. Ensure
+that the MariaDB client libraries are installed and that the
+mysql_clear_password plugin is available.
 
 Building the plugin requires a C compiler and GNU Make 4 or a BSD make.
 
