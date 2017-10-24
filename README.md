@@ -15,8 +15,9 @@ chmod +x /etc/rc.d/rc.saslauthd
 On OpenBSD, install the cyrus-sasl package and enable the saslauthd daemon
 with rcctl(8).
 
-On Ubuntu, install the sasl2-bin package and enable the saslauthd daemon. Add
-the mysql user to the sasl group and restart the database system.
+On Ubuntu, install the sasl2-bin package. Enable and configure the saslauthd
+daemon in /etc/default/saslauthd. Add the mysql user to the sasl group and
+restart the database system.
 
 If saslauthd uses PAM, create the file /etc/pam.d/mariadb.
 
