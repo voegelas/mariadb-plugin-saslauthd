@@ -120,8 +120,8 @@ documentation for more information.
 ## DEPENDENCIES
 
 The plugin requires MariaDB and the saslauthd daemon from Cyrus SASL. Ensure
-that the MariaDB client libraries are installed and that the
-mysql_clear_password plugin is available.
+that the MariaDB client libraries and the mysql_clear_password plugin are
+installed.
 
 Building the plugin requires a C compiler, GNU Make 4 or a BSD make and the
 MariaDB development files. On Ubuntu, install the build-essential and
