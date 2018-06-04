@@ -22,6 +22,7 @@
 #include <mysql/plugin_auth.h>
 #include <my_global.h>
 #include <mysqld_error.h>
+#include <mysql_version.h>
 
 #include "saslauthd_client.h"
 
@@ -165,6 +166,28 @@ static struct st_mysql_auth info =
   saslauthd_auth
 };
 
+#if defined(MARIADB_BASE_VERSION) && MYSQL_VERSION_ID >= 50203
+
+maria_declare_plugin(saslauthd)
+{
+  MYSQL_AUTHENTICATION_PLUGIN,
+  &info,
+  "saslauthd",
+  "Andreas Voegele",
+  "saslauthd based authentication",
+  PLUGIN_LICENSE_BSD,
+  NULL,
+  NULL,
+  0x0103,
+  NULL,
+  vars,
+  "1.3",
+  MariaDB_PLUGIN_MATURITY_STABLE
+}
+mysql_declare_plugin_end;
+
+#else
+
 mysql_declare_plugin(saslauthd)
 {
   MYSQL_AUTHENTICATION_PLUGIN,
@@ -175,10 +198,12 @@ mysql_declare_plugin(saslauthd)
   PLUGIN_LICENSE_BSD,
   NULL,
   NULL,
-  0x0102,
+  0x0103,
   NULL,
   vars,
   NULL,
   0
 }
 mysql_declare_plugin_end;
+
+#endif
