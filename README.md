@@ -129,7 +129,7 @@ libmariadb-dev packages.
 
 ## LICENSE AND COPYRIGHT
 
-Copyright 2017 Andreas Vögele
+Copyright 2017-2018 Andreas Vögele
 
 This plugin is free software; you can redistribute and modify it under the
 terms of the ISC license.

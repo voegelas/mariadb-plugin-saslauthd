@@ -1,7 +1,7 @@
 /*
  * Verify user name and password with saslauthd
  *
- * Copyright 2017 Andreas Voegele <andreas@andreasvoegele.com>
+ * Copyright 2017-2018 Andreas Voegele <andreas@andreasvoegele.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -16,12 +16,12 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include <mysql/plugin_auth.h>
-#include <my_sys.h>
-#include <mysqld_error.h>
-
 #include <stdlib.h>
 #include <string.h>
+
+#include <mysql/plugin_auth.h>
+#include <my_global.h>
+#include <mysqld_error.h>
 
 #include "saslauthd_client.h"
 
