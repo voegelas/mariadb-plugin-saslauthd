@@ -1,5 +1,9 @@
 Revision history for mariadb-plugin-saslauthd
 
+1.4  2018-07-03 18:10:49 CEST
+
+  - Use maria_declare_plugin_end.
+
 1.3  2018-06-04 06:05:49 CEST
 
   - Include my_global.h instead of my_sys.h.

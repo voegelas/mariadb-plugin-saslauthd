@@ -178,13 +178,13 @@ maria_declare_plugin(saslauthd)
   PLUGIN_LICENSE_BSD,
   NULL,
   NULL,
-  0x0103,
+  0x0104,
   NULL,
   vars,
-  "1.3",
+  "1.4",
   MariaDB_PLUGIN_MATURITY_STABLE
 }
-mysql_declare_plugin_end;
+maria_declare_plugin_end;
 
 #else
 
@@ -198,7 +198,7 @@ mysql_declare_plugin(saslauthd)
   PLUGIN_LICENSE_BSD,
   NULL,
   NULL,
-  0x0103,
+  0x0104,
   NULL,
   vars,
   NULL,
