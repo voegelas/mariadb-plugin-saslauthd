@@ -111,28 +111,30 @@ saslauthd_auth(MYSQL_PLUGIN_VIO *vio, MYSQL_SERVER_AUTH_INFO *info)
   unsigned char *pkt;
   int pkt_len;
   struct saslauthd_credentials cred[1];
+  int rc = -1;
   char *buf = NULL;
 
   memset(cred, 0, sizeof(struct saslauthd_credentials));
   cred->service = saslauthd_service;
   cred->service_len = (saslauthd_service != NULL) ? strlen(saslauthd_service) : 0;
   if (!get_user(info, cred, &buf))
-    return CR_ERROR;
+    goto end;
 
   if (vio->write_packet(vio, (const unsigned char *) "\4Enter password:", 16))
-    return CR_ERROR;
+    goto end;
 
   if ((pkt_len = vio->read_packet(vio, &pkt)) < 0)
-    return CR_ERROR;
+    goto end;
 
   info->password_used = PASSWORD_USED_YES;
 
   cred->password = (const char *) pkt;
   cred->password_len = pkt_len;
-  int rc = saslauthd_checkpass(saslauthd_path, cred);
+  rc = saslauthd_checkpass(saslauthd_path, cred);
   if (rc != 0)
     my_printf_error(ER_ACCESS_DENIED_ERROR, "saslauthd: %s", MYF(0),
 		    cred->error);
+end:
   if (buf != NULL)
     free(buf);
   return (rc == 0) ? CR_OK : CR_ERROR;
@@ -178,10 +180,10 @@ maria_declare_plugin(saslauthd)
   PLUGIN_LICENSE_BSD,
   NULL,
   NULL,
-  0x0104,
+  0x0105,
   NULL,
   vars,
-  "1.4",
+  "1.5",
   MariaDB_PLUGIN_MATURITY_STABLE
 }
 maria_declare_plugin_end;
@@ -198,7 +200,7 @@ mysql_declare_plugin(saslauthd)
   PLUGIN_LICENSE_BSD,
   NULL,
   NULL,
-  0x0104,
+  0x0105,
   NULL,
   vars,
   NULL,

@@ -1,5 +1,9 @@
 Revision history for mariadb-plugin-saslauthd
 
+1.5  2018-08-07 05:29:32 CEST
+
+  - Don't leak memory on error.
+
 1.4  2018-07-03 18:10:49 CEST
 
   - Use maria_declare_plugin_end.
