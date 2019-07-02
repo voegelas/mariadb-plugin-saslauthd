@@ -3,6 +3,9 @@
 This MariaDB plugin authenticates database users against the system password
 file, LDAP or other mechanisms supported by saslauthd.
 
+**This plugin is no longer maintained because of constant incompatible changes
+in MariaDB.**
+
 ## ENABLE SASLAUTHD
 
 On Slackware Linux, enable the saslauthd daemon with:
